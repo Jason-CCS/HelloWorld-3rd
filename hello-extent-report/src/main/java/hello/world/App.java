@@ -5,7 +5,6 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.KlovReporter;
 
 import java.io.IOException;
 
@@ -15,7 +14,7 @@ import java.io.IOException;
 public class App {
     public static void main(String[] args) throws IOException {
 // start reporters
-        ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("extent.html");
+        ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("extent-report.html");
 
         // create ExtentReports and attach reporter(s)
         ExtentReports extent = new ExtentReports();
