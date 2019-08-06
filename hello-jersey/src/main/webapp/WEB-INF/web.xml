@@ -1,0 +1,31 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+    <filter>
+        <filter-name>jersey</filter-name>
+        <filter-class>org.glassfish.jersey.servlet.ServletContainer</filter-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>com.jason.config.JerseyConfig</param-value>
+        </init-param>
+        
+        <!---->
+        <init-param>
+            <param-name>jersey.config.server.mvc.templateBasePath.freemarker</param-name>
+            <param-value>views</param-value>
+        </init-param>
+        
+        <!--static file-->
+        <init-param>
+            <param-name>jersey.config.servlet.filter.staticContentRegex</param-name>
+            <param-value>/.*jsp|/.*html|/.*js|/.*css|/.*jpg|/.*png</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>jersey</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>

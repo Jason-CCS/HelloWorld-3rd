@@ -1,0 +1,17 @@
+{
+"namespace": "com.jason.app",
+"type": "record",
+"name": "test",
+"fields": [
+       {"name": "id", "type": ["long", "null"]},
+       {"name": "dbTable",  "type": ["string", "null"]},
+       {"name": "time",  "type": ["long", "null"]},
+       {"name": "table",  "type": ["string", "null"]},
+       {"name": "action",  "type": ["string", "null"]},
+       {"name": "rows",  "type":[{"type": "array", "items": "string"}, "null"]},
+       {"name": "cf",  "type":[{"type": "array", "items": "string"}, "null"]},
+       {"name": "fields",  "type":[{"type": "array", "items": "string"}, "null"]},
+       {"name": "valueslist", "type": [{"type": "array", "items": [{"type": "array", "items": "string"}, "null"]}, "null"]}
+       {"name":"solr-input-doc", "type":["SolrInputDocument", "null"]}
+    ]
+}

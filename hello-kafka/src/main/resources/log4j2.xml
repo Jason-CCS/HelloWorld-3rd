@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--monitorInterval這個代表多久時間會檢查一次配置檔的變動，如果變動自動更新配置檔的內容，status代表log4j2本身日誌打印的嚴重等級，主要用來除log4j2自身的錯誤。-->
+<configuration monitorInterval="5" status="info">
+
+    <!--  // appenders標籤 中包含的是策略設定 -->
+    <appenders>
+
+        <!--  //===================rollingFile類型策略的設定 ===============    -->
+        <!--<RollingFile name="TestReLoad" fileName="logs/TestReLoad.log"
+                     filePattern="logs/TestReLoad-%i.log"> &lt;!&ndash; // name代表其名稱logger可以配置相對應的名稱，來指定要打印的嚴重等級 &ndash;&gt;
+            &lt;!&ndash; // filePattern代表備份數的檔案路徑和名稱規則，這邊跟log4j比較不同的是，日誌越新的編號越大，但正在打印的將是fileName的設定名稱。
+                &ndash;&gt;
+            <PatternLayout pattern="%d{yyyy.MM.dd HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            &lt;!&ndash; // PatternLayout pattern代表日誌內容打印的格式 &ndash;&gt;
+            <SizeBasedTriggeringPolicy size="2KB"/>
+            &lt;!&ndash; //SizeBasedTriggeringPolicy 代表每個檔案可以寫入的日誌容量，也就是滿足多少日誌量，將要換檔。 &ndash;&gt;
+            <DefaultRolloverStrategy max="3"/>
+            &lt;!&ndash; //DefaultRolloverStrategy 代表最多換檔數為多少，例如檔案名稱log而max為n，也就是將會產生log.1，log.2，，log.n，因此保留的檔案數就是n+1，其中1是正在打印的檔案本身
+            //這邊跟log4j 1不同的地方是，log4j2最新的保留檔案編號將會越大，而log4j1最新的保留檔案永遠是編號最前面的數字。
+             &ndash;&gt;
+        </RollingFile>-->
+
+        <!--<RollingFile name="TestReLoad2" fileName="logs/TestReLoad2.log"
+                     filePattern="logs/TestReLoad2-%i.log"> &lt;!&ndash; // name代表其名稱logger可以配置相對應的名稱，來指定要打印的嚴重等級 &ndash;&gt;
+            &lt;!&ndash; // filePattern代表備份數的檔案路徑和名稱規則，這邊跟log4j比較不同的是，日誌越新的編號越大，但正在打印的將是fileName的設定名稱。
+                &ndash;&gt;
+            <PatternLayout pattern="%d{yyyy.MM.dd HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            &lt;!&ndash; // PatternLayout pattern代表日誌內容打印的格式 &ndash;&gt;
+            <SizeBasedTriggeringPolicy size="2MB"/>
+            &lt;!&ndash; //SizeBasedTriggeringPolicy 代表每個檔案可以寫入的日誌容量，也就是滿足多少日誌量，將要換檔。 &ndash;&gt;
+            <DefaultRolloverStrategy max="3"/>
+            &lt;!&ndash; //DefaultRolloverStrategy 代表最多換檔數為多少，例如檔案名稱log而max為n，也就是將會產生log.1，log.2，，log.n，因此保留的檔案數就是n+1，其中1是正在打印的檔案本身
+            //這邊跟log4j 1不同的地方是，log4j2最新的保留檔案編號將會越大，而log4j1最新的保留檔案永遠是編號最前面的數字。
+             &ndash;&gt;
+        </RollingFile>-->
+
+
+        <!-- // 同上說明 -->
+        <RollingFile name="prj" fileName="logs/hello-kafka.log"
+                     filePattern="logs/hello-kafka-%i.log">
+            <PatternLayout pattern="%d{yyyy.MM.dd HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="10MB"/>
+            <DefaultRolloverStrategy max="3"/>
+        </RollingFile>
+
+
+        <!--  //====================console打印類型策略的設定===================
+         -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy.MM.dd HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+        </Console>
+        <!--   // ======================SMTP 信件策略的設定 =====================
+          --><!--  <SMTP name="Mail" subject="CustomerProfile_SyncApp Error Log" to="Ichang.I.Lin@newegg.com"
+          smtpHost="st01smtp01.buyabs.corp"  bufferSize="50"></SMTP> -->
+        <!--   // name為appenders的名稱 subject是信件的標題 to 代表要傳送的信箱，如果多個可以用”,”號區隔，smtpHost代表smtp的服務主機IP，bufferSize代表信中所能包含的最大log event的数量。
+-->
+    </appenders>
+
+
+    <!--   // ========需要啟動的logger成員和對應的策略關係======== -->
+    <loggers>
+
+        <!--    //  指定特定的logger名稱的日誌打印方法，這種方法的使用只要在程序中LogManager.gerLogger("testReLoad");在使用呼叫出來的物件，就可以使用該物件配置的策略。而level代表這                    個logger打印何種嚴重等級之上的日誌，additivity代表該日誌是否該被root層級的日誌打印。appender-ref代表其對應的日誌打印策略為何. -->
+        <!--<logger name="testReLoad" additivity="true" level="INFO">
+            <appender-ref ref="TestReLoad"/>
+        </logger>-->
+
+        <!--  //logger name也可以設定成包名使用，並支援萬用字元。這代表包名是ec.newegg.*.test這樣的日誌都會使用Exmple的打印策略-->
+        <!--<logger name="ec.newegg.*.test" additivity="false">
+            <appender-ref ref="Exmple"/>
+        </logger>-->
+
+        <!-- // 最低嚴重等級設定 所有要啟動的loggers都必須要在這邊設定，才會生效，嚴重等級設定低於root將以root為主。 -->
+        <root level="DEBUG">
+            <appender-ref ref="prj"/>
+            <appender-ref ref="console"/>
+            <!--如果上面有設定logger，並且在程式碼中有取用，那麼以下的appender就不用了，如上面就有指定testReLoad，所以下面就被註解掉-->
+            <!--<appender-ref level="DEBUG" ref="TestReLoad"/>-->
+            <!-- // 信件功能 <appender-ref level="ERROR" ref="Mail"/>  -->
+        </root>
+    </loggers>
+</configuration>
